@@ -6,7 +6,7 @@ This repository contains the anonymous code for the following submission to ICLR
 
 Previous appraches for automated optimizing compilation of deep neural networks relay on either Traditional Compilation Heuristics, Genetic Algorithms, or other Stochastic Methods. However, these methods suffer from frequent costly hardware measurements rendering them not only too time consuming but also suboptimal. We develop and Adaptive approach to replace current methods.
 
-(1) Leverage Reinforcement Learning (RL) whose solution takes fewer steps to converge
+(1) Leverage Reinforcement Learning (RL) whose solution takes fewer steps to converge <br/>
 (2) Develop and Adaptive Sampling based on clustering algorithms to focus the costly measurements
 
 __Overview__
