@@ -13,5 +13,12 @@ __Overview__
 
 __Results__
 
+__Instructions__
+1. Clone TVM <br/>
+2. Replace contents of AutoTVM in python/tvm/autotvm with contents of Chameleon <br/>
+3. For rest of the process, follow TVM
+
 __Link__
-OpenReview: https://openreview.net/forum?id=rygG4AVFvH
+OpenReview Forum for Chameleon: https://openreview.net/forum?id=rygG4AVFvH <br/>
+TVM: An Automated End-to-End Optimizing Compiler for Deep Learning (OSDI'18): https://tvm.ai <br/>
+Learning to Optimize Tensor Programs (AutoTVM, NeurIPS'18): https://papers.nips.cc/paper/7599-learning-to-optimize-tensor-programs.pdf <br/>
