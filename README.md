@@ -1,4 +1,4 @@
-# chameleon
+# Chameleon Optimizing Compiler
 Chameleon: Adaptive Code Optimization for Expedited Deep Neural Network Compilation
 
 This repository contains the anonymous code for the following submission to ICLR 2020.
