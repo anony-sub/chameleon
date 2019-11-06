@@ -18,9 +18,9 @@ __Results__
 ![Results](https://github.com/anony-sub/chameleon/blob/master/images/iter_vs_flops_zoom_oval_complete.png)
 
 __Instructions__
-1. Clone TVM <br/>
-2. Replace contents of AutoTVM in python/tvm/autotvm with contents of Chameleon <br/>
-3. For rest of the process, follow TVM
+1. Clone TVM. <br/>
+2. Copy Chameleon to the TVM directory (python/tvm), this package can be used like the AutoTVM. <br/>
+3. For rest of the process, follow TVM.
 
 __Link__
 
