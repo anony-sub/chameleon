@@ -11,7 +11,11 @@ Previous appraches for automated optimizing compilation of deep neural networks 
 
 __Overview__
 
+![Overview](https://github.com/anony-sub/chameleon/blob/master/images/rlc_overview.png)
+
 __Results__
+
+![Results](https://github.com/anony-sub/chameleon/blob/master/images/iter_vs_flops_zoom_oval_complete.png)
 
 __Instructions__
 1. Clone TVM <br/>
