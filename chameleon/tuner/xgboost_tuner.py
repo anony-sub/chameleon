@@ -19,6 +19,8 @@
 from .model_based_tuner import ModelBasedTuner, ModelOptimizer
 from .xgboost_cost_model import XGBoostCostModel
 from .sa_model_optimizer import SimulatedAnnealingOptimizer
+from .sampler import Sampler
+from .adaptive_sampler import AdaptiveSampler
 
 class XGBTuner(ModelBasedTuner):
     """Tuner that uses xgboost as cost model
@@ -66,7 +68,7 @@ class XGBTuner(ModelBasedTuner):
     """
     def __init__(self, task, plan_size=64,
                  feature_type='itervar', loss_type='rank', num_threads=None,
-                 optimizer='sa', diversity_filter_ratio=None, log_interval=50):
+                 optimizer='sa', sampler=None, diversity_filter_ratio=None, log_interval=50):
         cost_model = XGBoostCostModel(task,
                                       feature_type=feature_type,
                                       loss_type=loss_type,
@@ -79,8 +81,17 @@ class XGBTuner(ModelBasedTuner):
                                                           "a supported name string" \
                                                           "or a ModelOptimizer object."
 
+        if sampler == None:
+            sampler = None
+        elif sampler == 'adaptive':
+            sampler = AdaptiveSampler(plan_size)
+        else:
+            assert isinstance(sampler, Sampler), "Sampler must be None," \
+                                                 "a supported name string," \
+                                                 "or a Sampler object."
+
         super(XGBTuner, self).__init__(task, cost_model, optimizer,
-                                       plan_size, diversity_filter_ratio)
+                                       plan_size, diversity_filter_ratio, sampler)
 
     def tune(self, *args, **kwargs):  # pylint: disable=arguments-differ
         super(XGBTuner, self).tune(*args, **kwargs)

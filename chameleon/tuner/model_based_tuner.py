@@ -191,7 +191,7 @@ class ModelBasedTuner(Tuner):
         and then pick plan_size of them according to the diversity metric.
     """
 
-    def __init__(self, task, cost_model, model_optimizer, plan_size, diversity_filter_ratio=None):
+    def __init__(self, task, cost_model, model_optimizer, plan_size, diversity_filter_ratio=None, sampler=None):
         super(ModelBasedTuner, self).__init__(task)
 
         # space
@@ -204,6 +204,7 @@ class ModelBasedTuner(Tuner):
 
         self.cost_model = cost_model
         self.model_optimizer = model_optimizer
+        self.sampler = sampler
         self.diversity_filter_ratio = diversity_filter_ratio
 
         if self.diversity_filter_ratio:
@@ -214,6 +215,7 @@ class ModelBasedTuner(Tuner):
         self.trials = []
         self.trial_pt = 0
         self.visited = set()
+        self.next_update = plan_size
 
         # observed samples
         self.xs = []
@@ -261,7 +263,7 @@ class ModelBasedTuner(Tuner):
                 self.ys.append(0.0)
 
         # if we have enough new training samples
-        if len(self.xs) >= self.plan_size * (self.train_ct + 1) \
+        if len(self.visited) >= self.next_update \
                 and self.flops_max > 1e-6:
             self.cost_model.fit(self.xs, self.ys, self.plan_size)
             if self.diversity_filter_ratio:
@@ -275,9 +277,15 @@ class ModelBasedTuner(Tuner):
                 maximums = self.model_optimizer.find_maximums(
                     self.cost_model, self.plan_size, self.visited)
 
+            if self.sampler:
+                samples = [point2knob(config, self.dims) for config in maximums]
+                reduced_samples = self.sampler.sample(samples, self.dims)
+                maximums = [knob2point(sample, self.dims) for sample in reduced_samples]
+            
             self.trials = maximums
             self.trial_pt = 0
             self.train_ct += 1
+            self.next_update += len(maximums)    
 
     def load_history(self, data_set):
         # set in_tuning as True to make the feature extraction consistent

@@ -52,6 +52,9 @@ class Tuner(object):
         self.n_trial = None
         self.early_stopping = None
 
+        # sampling algorithm
+        self.sampler = None
+
     def has_next(self):
         """Whether has next untried config in the space
 
